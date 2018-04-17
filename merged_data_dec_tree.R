@@ -1,0 +1,12 @@
+library(rpart)
+library(plotly)
+library(rpart.plot)
+library(RColorBrewer)
+diabetes_data_train_frame=read.csv("merged_data_train.csv",header=TRUE)
+diabetes_data_test_frame=read.csv("merged_data_test.csv",header=TRUE)
+regression_tree=rpart(glucose_level~bmi+age+weight+num_lab_procedures+num_procedures,data = diabetes_data_train_frame, method = "class")
+prp(regression_tree)
+outcome_merged_decisiontree=data.frame()
+outcome_merged_decisiontree<-predict(regression_tree,diabetes_data_test_frame,type = "class")
+#Comment out the following line and run it after seeing the decision tree
+plot(outcome_merged_decisiontree)
